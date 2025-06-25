@@ -12,7 +12,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from . import serializers 
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
-
+from django.contrib import admin
+from django.urls import path
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -199,3 +201,16 @@ class PasswordResetConfirmAPIView(APIView):
             return Response({"detail": "Password has been reset successfully."}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+# for the root url while fixed during the deplment
+def home_view(request):
+    data = {
+        "message": "Welcome to the homepage!"
+    }
+    return JsonResponse(data)
+
+
