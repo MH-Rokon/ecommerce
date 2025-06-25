@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from author.views import home_view;
+from .views import home_view;
 
 urlpatterns = [
     path('admin/', admin.site.urls),
