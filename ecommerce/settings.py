@@ -1,10 +1,15 @@
 from pathlib import Path
 from datetime import timedelta
 from django.conf import settings
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'django-insecure-4v6@)kjd1mmos4ze+qkxg%o9xp(qewh!53ii25--ze&f82jtfy'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key-if-not-set')
+# SECRET_KEY = 'django-insecure-4v6@)kjd1mmos4ze+qkxg%o9xp(qewh!53ii25--ze&f82jtfy'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
@@ -60,12 +65,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
-# Database
+# #  default Database 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# postgresql Database 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://database_bmzd_user:ocF8yrdvT5pM74E2qRwK7xNoi690cpYC@dpg-d1e56hje5dus739nk0og-a.oregon-postgres.render.com/database_bmzd'
+    )
 }
 
 # Password validation
@@ -89,15 +100,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom user model
 AUTH_USER_MODEL = 'author.User'
 
-# Email settings (Gmail SMTP with app password)
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'rokonrokon74805@gmail.com'
-EMAIL_HOST_PASSWORD = 'jwxhcawjrvcnakcp'  
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
+
+
+
+
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+
+endpoint_secret = STRIPE_WEBHOOK_SECRET  
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -141,4 +162,6 @@ MEDIA_URL = '/media/'
 
 
 
-endpoint_secret = settings.STRIPE_WEBHOOK_SECRET  
+
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '') 
+endpoint_secret = STRIPE_WEBHOOK_SECRET
