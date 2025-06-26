@@ -35,7 +35,7 @@ def home_view(request):
                 "Refresh Token": f"{base_url}/api/token/refresh/"
             }
         },
-        "contact": "support@example.com"
+      
     }
 
     return JsonResponse(data)
