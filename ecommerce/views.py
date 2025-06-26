@@ -37,7 +37,7 @@ def home_view(request):
         </head>
         <body>
             <h1>Welcome to the E-commerce API</h1>
-            <p>Version: 1.0</p>
+            <p>Click on the text to navigate to the relaed api urls </p>
 
             <div class="section">
                 <h2>Authentication</h2>
