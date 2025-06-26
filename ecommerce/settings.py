@@ -121,6 +121,10 @@ STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 endpoint_secret = STRIPE_WEBHOOK_SECRET  
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://ecommerce-y7dt.onrender.com",
+]
+
 
 # REST Framework + JWT
 # REST Framework + JWT
